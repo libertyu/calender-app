@@ -4,10 +4,8 @@ import { createCalendar } from "../../services/calendar";
 import { GridList, Typography } from "@material-ui/core";
 import * as styles from "./style.css";
 
-const days = ["月", "火", "水", "木", "金", "土", "日"];
+const days = ["日", "月", "火", "水", "木", "金", "土"];
 const calendar = createCalendar();
-
-console.log(calendar);
 
 const CalendarBoard = () => {
   return (
