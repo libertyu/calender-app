@@ -2,19 +2,19 @@ import React from "react";
 import * as styles from "./style.css";
 import { Typography } from "@material-ui/core";
 import dayjs from "dayjs";
+import { isFirstDay, isSameDay, isSameMonth } from "../../services/calendar";
 
 const CalendarElement = ({ day }) => {
+  const today = dayjs();
+
   // 月初の日数の時は"M月D日"、それ以外は"D"を返す
-  const isFirstDay = day.date() === 1;
-  const format = isFirstDay ? "M月D日" : "D";
+  const format = isFirstDay(day) ? "M月D日" : "D";
 
   // 当日かどうかを確認
-  const today = dayjs();
-  const compareFormat = "YYYYMMDD";
-  const isToday = day.format(compareFormat) === today.format(compareFormat);
+  const isToday = isSameDay(day, today);
 
   // 今月以外をグレーダウン
-  const isCurrentMonth = day.month() === today.month();
+  const isCurrentMonth = isSameMonth(day, today);
   const textColor = isCurrentMonth ? "textPrimary" : "textSecondary";
 
   return (
