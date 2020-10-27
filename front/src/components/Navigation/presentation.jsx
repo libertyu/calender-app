@@ -9,21 +9,23 @@ const StyledToolbar = withStyles({
 })(Toolbar);
 
 const StyledTypography = withStyles({
-  root: { margin: "0 300px 0 10px" }
+  root: { margin: "0 30px 0 10px" }
 })(Typography);
 
-const Navigation = () => {
+const Navigation = ({ setNextMonth, setPreviousMonth }) => {
   return (
     <StyledToolbar>
       <IconButton>
         <DehazeIcon />
       </IconButton>
-      <img src="/images/calendar_icon.png" alt="" width="40" height="40" />
-      <StyledTypography>カレンダー</StyledTypography>
-      <IconButton size="small">
+      <img src="/images/calendar_icon.png" width="40" height="40" />
+      <StyledTypography color="textSecondary" variant="h5" component="h1">
+        カレンダー
+      </StyledTypography>
+      <IconButton size="small" onClick={setPreviousMonth}>
         <ArrowBackIos />
       </IconButton>
-      <IconButton size="small">
+      <IconButton size="small" onClick={setNextMonth}>
         <ArrowForwardIos />
       </IconButton>
     </StyledToolbar>

@@ -4,10 +4,7 @@ import "dayjs/locale/ja";
 dayjs.locale("ja");
 
 export const createCalendar = month => {
-  // 月初を取得(Thu Oct 01 2020 00:00:00 GMT+0900 (日本標準時)
-  console.log(month);
   const firstDay = getMonth(month);
-  // 月初の曜日を取得(10月1日の場合木曜日なので"4")
   const firstDayIndex = firstDay.day();
 
   return Array(35)
@@ -35,4 +32,19 @@ export const isSameMonth = (d1, d2) => {
 
 export const getMonth = ({ year, month }) => {
   return dayjs(`${year}-${month}`);
+};
+
+export const formatMonth = day => ({
+  month: day.month() + 1,
+  year: day.year()
+});
+
+export const getNextMonth = month => {
+  const day = getMonth(month).add(1, "month");
+  return formatMonth(day);
+};
+
+export const getPreviousMonth = month => {
+  const day = getMonth(month).add(-1, "month");
+  return formatMonth(day);
 };
