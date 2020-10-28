@@ -9,7 +9,7 @@ const initState = {
     title: "",
     description: "",
     date: null,
-    location
+    location: ""
   },
   isDialogOpen: false
 };
