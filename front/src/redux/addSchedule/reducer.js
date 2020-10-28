@@ -4,11 +4,13 @@ import {
   ADD_SCHEDULE_CLOSE_DIALOG
 } from "./action";
 
+import dayjs from "dayjs";
+
 const initState = {
   form: {
     title: "",
     description: "",
-    date: null,
+    date: dayjs(),
     location: ""
   },
   isDialogOpen: false
