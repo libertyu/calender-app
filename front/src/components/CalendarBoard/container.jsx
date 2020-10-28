@@ -1,13 +1,17 @@
 import { connect } from "react-redux";
 import CalendarBoard from "./presentation";
 import { createCalendar } from "../../services/calendar";
-import { addScheduleOpenDialog } from "../../redux/addSchedule/action";
+import {
+  addScheduleOpenDialog,
+  addScheduleSetValue
+} from "../../redux/addSchedule/action";
 
 const mapStateToProps = state => ({ calendar: state.calendar });
 
 const mapDispatchToProps = dispatch => ({
-  openAddScheduleDialog: () => {
+  openAddScheduleDialog: d => {
     dispatch(addScheduleOpenDialog());
+    dispatch(addScheduleSetValue({ date: d }));
   }
 });
 
