@@ -1,10 +1,10 @@
 import { SCHEDULES_ADD_ITEM } from "./action";
+import dayjs from "dayjs";
 
 const initState = {
   items: [],
   isLoading: false
 };
-
 const scheduleReducer = (state = initState, action) => {
   const { type, payload } = action;
   switch (type) {
