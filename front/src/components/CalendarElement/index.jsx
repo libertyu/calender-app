@@ -10,7 +10,7 @@ import {
   getMonth
 } from "../../services/calendar";
 
-const CalendarElement = ({ day, month, schedules }) => {
+const CalendarElement = ({ day, month, schedules, ...props }) => {
   const today = dayjs();
 
   // 月初の日数の時は"M月D日"、それ以外は"D"を返す
@@ -39,7 +39,7 @@ const CalendarElement = ({ day, month, schedules }) => {
       </Typography>
       <div className={styles.schedules}>
         {schedules.map(e => (
-          <Schedule key={e.id} schedule={e} />
+          <Schedule key={e.id} schedule={e} {...props} />
         ))}
       </div>
     </div>
