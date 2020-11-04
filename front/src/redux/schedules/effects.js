@@ -2,7 +2,8 @@ import {
   schedulesSetLoading,
   schedulesFetchItem,
   schedulesAddItem,
-  schedulesDeleteItem
+  schedulesDeleteItem,
+  schedulesAsyncFailure
 } from "./action";
 import { get, post, deleteRequest } from "../../services/api";
 import { formatSchedule } from "../../services/schedule";
@@ -10,28 +11,46 @@ import { formatSchedule } from "../../services/schedule";
 export const asyncSchedulesFetchItem = ({ month, year }) => async dispatch => {
   dispatch(schedulesSetLoading());
 
-  const result = await get(`schedules?month=${month}&year=${year}`);
-  const formatedSchedule = result.map(r => formatSchedule(r));
+  try {
+    const result = await get(`schedules?month=${month}&year=${year}`);
+    const formatedSchedule = result.map(r => formatSchedule(r));
 
-  dispatch(schedulesFetchItem(formatedSchedule));
+    dispatch(schedulesFetchItem(formatedSchedule));
+  } catch (err) {
+    console.error(err);
+
+    dispatch(schedulesAsyncFailure(err.message));
+  }
 };
 
 export const asyncSchedulesAddItem = schedule => async dispatch => {
   dispatch(schedulesSetLoading());
 
-  const body = { ...schedule, date: schedule.date.toISOString() };
-  const result = await post("schedules", body);
-  const newSchedule = formatSchedule(result);
+  try {
+    const body = { ...schedule, date: schedule.date.toISOString() };
+    const result = await post("schedules", body);
+    const newSchedule = formatSchedule(result);
 
-  dispatch(schedulesAddItem(newSchedule));
+    dispatch(schedulesAddItem(newSchedule));
+  } catch (err) {
+    console.error(err);
+
+    dispatch(schedulesAsyncFailure(err.message));
+  }
 };
 
 export const asyncSchedulesDeleteItem = id => async (dispatch, getState) => {
   dispatch(schedulesSetLoading());
 
-  const currentSchedules = getState().schedules.items;
-  await deleteRequest(`schedules/${id}`);
+  try {
+    const currentSchedules = getState().schedules.items;
+    await deleteRequest(`schedules/${id}`);
 
-  const newSchedule = currentSchedules.filter(s => s.id !== id);
-  dispatch(schedulesDeleteItem(newSchedule));
+    const newSchedule = currentSchedules.filter(s => s.id !== id);
+    dispatch(schedulesDeleteItem(newSchedule));
+  } catch (err) {
+    console.error(err);
+
+    dispatch(schedulesAsyncFailure(err.message));
+  }
 };
