@@ -10,6 +10,7 @@ import CalendarBoard from "./components/CalendarBoard/container";
 import AddScheduleDialog from "./components/AddScheduleDialog/container";
 import Navigation from "./components/Navigation/container";
 import CurrentScheduleDialog from "./components/CurrentScheduleDialog/container";
+import ErrorSnackbar from "./components/ErrorSnackbar/container";
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
@@ -20,6 +21,7 @@ const App = () => (
       <CalendarBoard />
       <AddScheduleDialog />
       <CurrentScheduleDialog />
+      <ErrorSnackbar />
     </MuiPickersUtilsProvider>
   </Provider>
 );
