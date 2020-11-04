@@ -1,7 +1,8 @@
 import {
   SCHEDULES_ADD_ITEM,
   SCHEDULES_SET_LOADING,
-  SCHEDULES_FETCH_ITEM
+  SCHEDULES_FETCH_ITEM,
+  SCHEDULES_DELETE_ITEM
 } from "./action";
 import dayjs from "dayjs";
 
@@ -24,6 +25,12 @@ const scheduleReducer = (state = initState, action) => {
         isLoading: true
       };
     case SCHEDULES_FETCH_ITEM:
+      return {
+        ...state,
+        isLoading: false,
+        items: payload
+      };
+    case SCHEDULES_DELETE_ITEM:
       return {
         ...state,
         isLoading: false,

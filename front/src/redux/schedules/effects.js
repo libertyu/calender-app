@@ -1,9 +1,10 @@
 import {
   schedulesSetLoading,
   schedulesFetchItem,
-  schedulesAddItem
+  schedulesAddItem,
+  schedulesDeleteItem
 } from "./action";
-import { get, post } from "../../services/api";
+import { get, post, deleteRequest } from "../../services/api";
 import { formatSchedule } from "../../services/schedule";
 
 export const asyncSchedulesFetchItem = ({ month, year }) => async dispatch => {
@@ -23,4 +24,14 @@ export const asyncSchedulesAddItem = schedule => async dispatch => {
   const newSchedule = formatSchedule(result);
 
   dispatch(schedulesAddItem(newSchedule));
+};
+
+export const asyncSchedulesDeleteItem = id => async (dispatch, getState) => {
+  dispatch(schedulesSetLoading());
+
+  const currentSchedules = getState().schedules.items;
+  await deleteRequest(`schedules/${id}`);
+
+  const newSchedule = currentSchedules.filter(s => s.id !== id);
+  dispatch(schedulesDeleteItem(newSchedule));
 };
